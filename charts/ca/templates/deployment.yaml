@@ -58,7 +58,7 @@ spec:
         - sh
         - -c
         - chown -R 1000:1000 /ca
-        image: busybox
+        image: "{{ .Values.initContainers.image.repository }}"
         imagePullPolicy: IfNotPresent
         name: volume-permissions
         resources: {}
