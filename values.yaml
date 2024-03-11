@@ -150,6 +150,7 @@ auth:
     authExpiration: 12 hours
     userSearchScope: ONE_LEVEL # Search scope for searching users (ONE_LEVEL, OBJECT, or SUBTREE). Required if searching users.
     groupSearchScope: ONE_LEVEL # Search scope for searching groups (ONE_LEVEL, OBJECT, or SUBTREE). Required if searching groups.
+    referralStrategy: IGNORE
 
   oidc:
     enabled: false
