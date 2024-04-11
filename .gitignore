@@ -5,3 +5,4 @@
 *.lock
 
 .idea
+/test-nifi-values.yaml

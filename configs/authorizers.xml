@@ -143,15 +143,15 @@
         <property name="User Object Class">person</property>
         <property name="User Search Scope">{{.Values.auth.ldap.userSearchScope}}</property>
         <property name="User Search Filter">{{.Values.auth.ldap.searchFilter}}</property>
-        <property name="User Identity Attribute">{{.Values.auth.ldap.UserIdentityAttribute}}</property>
-        <property name="User Group Name Attribute"></property>
+        <property name="User Identity Attribute">{{.Values.auth.ldap.userIdentityAttribute}}</property>
+        <property name="User Group Name Attribute">{{.Values.auth.ldap.userGroupNameAttribute}}</property>
         <property name="User Group Name Attribute - Referenced Group Attribute"></property>
-        <property name="Group Search Base"></property>
+        <property name="Group Search Base">{{.Values.auth.ldap.groupSearchBase}}</property>
         <property name="Group Object Class">group</property>
         <property name="Group Search Scope">{{.Values.auth.ldap.groupSearchScope}}</property>
-        <property name="Group Search Filter"></property>
-        <property name="Group Name Attribute"></property>
-        <property name="Group Member Attribute"></property>
+        <property name="Group Search Filter">{{.Values.auth.ldap.groupSearchFilter}}</property>
+        <property name="Group Name Attribute">{{.Values.auth.ldap.groupNameAttribute}}</property>
+        <property name="Group Member Attribute">{{.Values.auth.ldap.groupMemberAttribute}}</property>
         <property name="Group Member Attribute - Referenced User Attribute"></property>
     </userGroupProvider>
     {{- end}}
@@ -220,7 +220,11 @@
     <accessPolicyProvider>
         <identifier>file-access-policy-provider</identifier>
         <class>org.apache.nifi.authorization.FileAccessPolicyProvider</class>
+        {{- if .Values.auth.ldap.enabled}}
+        <property name="User Group Provider">composite-configurable-user-group-provider</property>
+        {{- else }}
         <property name="User Group Provider">file-user-group-provider</property>
+        {{- end}}
         <property name="Authorizations File">./auth-conf/authorizations.xml</property>
         {{- if and .Values.auth.ldap.enabled (not .Values.auth.admin) }}
         <property name="Initial Admin Identity">{{.Values.auth.ldap.admin}}</property>
